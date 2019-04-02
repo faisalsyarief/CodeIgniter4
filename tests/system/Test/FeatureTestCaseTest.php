@@ -28,6 +28,10 @@ class FeatureTestCaseTest extends FeatureTestCase
 				},
 			],
 		]);
+		//              $data = $this->routes->getRoutes();
+		//              //foreach ($data as $record) echo var_dump($record);
+		//              //die;
+		//              print_r($data);die;
 		$response = $this->get('home');
 
 		// close open buffer

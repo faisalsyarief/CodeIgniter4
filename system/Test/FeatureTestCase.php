@@ -55,6 +55,7 @@ use Config\Services;
  */
 class FeatureTestCase extends CIDatabaseTestCase
 {
+
 	/**
 	 * If present, will override application
 	 * routes when using call().
@@ -89,6 +90,7 @@ class FeatureTestCase extends CIDatabaseTestCase
 	protected function withRoutes(array $routes = null)
 	{
 		$collection = \Config\Services::routes();
+		$collection->resetRoutes();
 
 		if ($routes)
 		{
@@ -155,17 +157,18 @@ class FeatureTestCase extends CIDatabaseTestCase
 		$_SERVER['REQUEST_METHOD'] = $method;
 
 		$response = $this->app
-			->setRequest($request)
-			->run($this->routes, true);
+				->setRequest($request)
+				->run($this->routes, true);
 
 		// Clean up any open output buffers
-		// not relevant to unit testing
-		// @codeCoverageIgnoreStart
 		if (ob_get_level() > 0 && $this->clean)
 		{
-			ob_end_clean();
+			$output = ob_end_clean();
 		}
-		// @codeCoverageIgnoreEnd
+		if (empty($response->getBody()))
+		{
+			$response->setBody($output);
+		}
 
 		$featureResponse = new FeatureResponse($response);
 
@@ -310,4 +313,5 @@ class FeatureTestCase extends CIDatabaseTestCase
 
 		return $request;
 	}
+
 }
