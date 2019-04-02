@@ -171,8 +171,10 @@ class FeatureTestCase extends CIDatabaseTestCase
 				->setRequest($request)
 				->run($this->routes, true);
 
+		$output = null;
+
 		// Clean up any open output buffers
-		if (ob_get_level() > 0 && $this->clean)
+		if (ob_get_level() >= 0 && $this->clean)
 		{
 			$output = ob_end_clean();
 		}

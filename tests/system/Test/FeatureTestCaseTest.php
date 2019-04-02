@@ -14,7 +14,7 @@ class FeatureTestCaseTest extends FeatureTestCase
 		parent::setUp();
 
 		$this->skipEvents();
-		$this->clean = false;
+		//      $this->clean = false;
 	}
 
 	public function testCallGet()
@@ -28,14 +28,8 @@ class FeatureTestCaseTest extends FeatureTestCase
 				},
 			],
 		]);
-		//              $data = $this->routes->getRoutes();
-		//              //foreach ($data as $record) echo var_dump($record);
-		//              //die;
-		//              print_r($data);die;
-		$response = $this->get('home');
 
-		// close open buffer
-		ob_end_clean();
+		$response = $this->get('home');
 
 		$response->assertSee('Hello World');
 		$response->assertDontSee('Again');
