@@ -577,6 +577,9 @@ class Router implements RouterInterface
 	{
 		$segments = array_filter($segments);
 
+		// Reindex the array just in case there were empty values previously
+		$segments = array_values($segments);
+
 		$c                  = count($segments);
 		$directory_override = isset($this->directory);
 
